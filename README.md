@@ -14,27 +14,27 @@ La base del proyecto no sería posible sin:
 El proyecto requiere tener la versión de Python 3.x  
 ### Clonar Código fuente
 ```bash
-> git clone https://github.com/Lejoa/SIRCUV.git
+git clone https://github.com/Lejoa/SIRCUV.git
 ```
 ### Crear un ambiente virtual para el proyecto
 Verificar que virtualenv se encuentre instalado.
 ```bash
-> virtualenv --version
+virtualenv --version
 ```
 Una vez verificado que virtualenv se encuentra instalado, se crea un ambiente usando los siguientes comandos:
 
 ```bash
-> cd moviegeek
-> virtualenv -p python3 prs
-> source prs/bin/activate
+cd moviegeek
+virtualenv -p python3 prs
+source prs/bin/activate
 ```
-### Instalar las diferentes dependencias del proyecto.
+### Instalar las diferentes dependencias del proyecto
 
 Se usa pip para instalar las dependencias definidas en el archivo:
 ```bash
-> pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 ```
-### Configurar la base de datos con PostGreSQL
+### Configurar la base de datos con PostgreSQL
 
 Se debe crear una base de datos con el nombre `moviegeek` y configurar la
 conexión de Django para establecer la comunicación.
@@ -66,12 +66,12 @@ Actualizar los campos USER, PASSWORD, HOST, and PORT:
 Para crear y poblar la base de datos de MovieGeek se deben ejecutar los siguientes comandos:
 
 ```bash
-> python3 manage.py makemigrations
-> python3 manage.py migrate --run-syncdb
+python3 manage.py makemigrations
+python3 manage.py migrate --run-syncdb
 ```
+
 ```bash
-> python3 populate_moviegeek.py
-> python3 populate_ratings.py
+python3 populate_moviegeek.py
 ```
 
 ###  Crear un ID en themoviedb.org
@@ -90,13 +90,19 @@ Recuerde remover el "<" y ">" cuando haya finalizado, El archivo debería conten
 
 Para iniciar el servidor de desarrollo, corra el siguiente comando:
 ```bash
-> python3 manage.py runserver 127.0.0.1:8000
+python3 manage.py runserver 127.0.0.1:8000
 ```
 Correr el servidor hará que la aplicación este disponible[http://127.0.0.1:8000](http://127.0.0.1:8000) 
 
 ALERTA: Si otras aplicaciones están haciendo uso del puerto 8000 se debe cambiar a otro(8001).
 
-### Puesta en marcha
+### Puesta en marcha de todas las funcionalidades del proyecto
+
+```bash
+python3 populate_ratings.py
+```
+
+Se pobla la base de datos con información: usuario, película y una acción.
 
 ```bash
 python3 populate_logs.py
@@ -137,7 +143,7 @@ Cuando se quiere detener el servidor web, se puede realizar los siguientes pasos
 
 Non-Anaconda users
 ```bash
->  deactivate
+deactivate
 ```
 
 ### Reiniciar el servidor web
@@ -146,11 +152,11 @@ Para reiniciar el servidor web:
 
 *   *Non-Anaconda users*:
     ```bash
-    > cd moviegeek
-    > source prs/bin/activate
+    cd moviegeek
+    source prs/bin/activate
     ```
     
 Iniciar el servidor web otra vez ejecutando el siguiente comando: 
 ```bash
-> python3 manage.py runserver 127.0.0.1:8000
+python3 manage.py runserver 127.0.0.1:8000
 ```
