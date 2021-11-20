@@ -1,6 +1,6 @@
 import os
 import sqlite3
-import tqdm
+from tqdm import tqdm
 import psycopg2
 from scipy.sparse import coo_matrix
 

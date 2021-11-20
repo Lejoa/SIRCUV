@@ -116,4 +116,4 @@ if __name__ == '__main__':
     print("Calculating user clusters...")
 
     cluster = UserClusterCalculator()
-    cluster.calculate(23)
+    cluster.calculate(5)

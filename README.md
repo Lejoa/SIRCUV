@@ -96,6 +96,38 @@ Correr el servidor hará que la aplicación este disponible[http://127.0.0.1:800
 
 ALERTA: Si otras aplicaciones están haciendo uso del puerto 8000 se debe cambiar a otro(8001).
 
+### Puesta en marcha
+
+```bash
+python3 populate_logs.py
+```
+
+```bash
+python3 –m builder.implicit_ratings_calculator
+```
+
+```bash
+python3 -m builder.association_rules_calculator
+```
+
+```bash
+python3 -m builder.user_cluster_calculator
+```
+
+```bash
+python3 populate_sample_of_descriptions.py
+```
+
+```bash
+python3 -m builder.lda_model_calculator
+```
+
+## Ejecución de pruebas
+```bash
+python3 -m evaluator.coverage –cf
+```
+
+
 ### Detener el servidor web
 
 Cuando se quiere detener el servidor web, se puede realizar los siguientes pasos:
