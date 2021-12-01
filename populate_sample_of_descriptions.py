@@ -4,13 +4,14 @@ import django
 import json
 import requests
 import time
+import random
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'prs_project.settings')
 
 django.setup()
 
 from recommender.models import MovieDescriptions
-NUMBER_OF_PAGES = 15760
+NUMBER_OF_PAGES = 1000
 start_date = "1970-01-01"
 
 
@@ -18,25 +19,32 @@ def get_descriptions():
 
     url = """https://api.themoviedb.org/3/discover/movie?primary_release_date.gte={}&api_key={}&page={}"""
     api_key = get_api_key()
-
+    errorno = 0
     #MovieDescriptions.objects.all().delete()
 
     for page in range(1, NUMBER_OF_PAGES):
         formated_url = url.format(start_date, api_key, page)
-        print(formated_url)
+        # print(formated_url)
         r = requests.get(formated_url)
-        for film in r.json()['results']:
-            id = film['id']
-            md = MovieDescriptions.objects.get_or_create(movie_id=id)[0]
+        # print('Inicia la generación descripción')
+        # print(r.json())
+        if 'results' in r.json():
+            for film in r.json()['results']:
+                id = film['id']
+                md = MovieDescriptions.objects.get_or_create(movie_id=id)[0]
 
-            md.imdb_id = get_imdb_id(id)
-            md.title = film['title']
-            md.description = film['overview']
-            md.genres = film['genre_ids']
-            if None != md.imdb_id:
-                md.save()
-
-        time.sleep(1)
+                md.imdb_id = get_imdb_id(id)
+                md.title = film['title']
+                md.description = film['overview']
+                md.genres = film['genre_ids']
+                if None != md.imdb_id:
+                    md.save()
+        else:
+            print('Existio un error')
+            errorno += 1
+            break
+       
+        time.sleep(random.randint(1,4))
 
         print("{}: {}".format(page, r.json()))
 

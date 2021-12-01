@@ -25,8 +25,8 @@ Una vez verificado que virtualenv se encuentra instalado, se crea un ambiente us
 
 ```bash
 cd moviegeek
-virtualenv -p python3 prs
-source prs/bin/activate
+virtualenv -p python3 sircuv
+source sircuv/bin/activate
 ```
 ### Instalar las diferentes dependencias del proyecto
 
@@ -102,31 +102,62 @@ ALERTA: Si otras aplicaciones están haciendo uso del puerto 8000 se debe cambia
 python3 populate_ratings.py
 ```
 
-Se pobla la base de datos con información: usuario, película y una acción.
+Se pobla la base de datos con información: usuario, película y una acción(vistas, compras y más detalles ).
 
 ```bash
 python3 populate_logs.py
 ```
 
+Se calcula calificaciones de los usuarios de acuerdo a los eventos que fueron registrados por los usuarios (Anterior script)
 ```bash
-python3 –m builder.implicit_ratings_calculator
+python3 -m builder.implicit_ratings_calculator
 ```
 
+Se calcula y crean las reglas de asociación (Sección Association Rules)
 ```bash
 python3 -m builder.association_rules_calculator
 ```
 
+Se realiza una implementación de Clustering (Versión optimizada de K-Means)
 ```bash
 python3 -m builder.user_cluster_calculator
 ```
 
+Se calcula el filtrado colaborativo
+```bash
+python3 -m builder.item_similarity_calculator
+```
+
+Se descarga de la descripción de las películas, si se presenta problemas 
+se debe cambiar la línea time.sleep(1) en el archivo. Es indispensable ejecutar
+este script para poder calcular la recomendación basada en contenido hecha por el algoritmo LDA.
+populate_sample_of_descriptions.py
 ```bash
 python3 populate_sample_of_descriptions.py
 ```
 
+Se genera un modelo LDA con la librería Gensim  (Sección Content-based recs del usuario) - (Sección Similar-content en el front del localhost )
 ```bash
 python3 -m builder.lda_model_calculator
 ```
+Después de su ejecución se puede verificar viendo las
+recomendaciones  de un usuario http://localhost:8000/rec/cb/user/50307185658/
+
+Se genera el modelo de Matrix
+```bash
+python3 -m builder.matrix_factorization_calculator
+```
+
+Se genera el modelo de para el algoritmo hibrido FWLS (Basado en contenido + colaborativo) 
+```bash
+python3 -m builder.fwls_calculator
+```
+
+Se genera el modelo de para el algoritmo BPRS
+```bash
+python3 -m builder.bpr_calculator
+```
+
 
 ## Ejecución de pruebas
 ```bash
@@ -153,7 +184,7 @@ Para reiniciar el servidor web:
 *   *Non-Anaconda users*:
     ```bash
     cd moviegeek
-    source prs/bin/activate
+    source sircuv/bin/activate
     ```
     
 Iniciar el servidor web otra vez ejecutando el siguiente comando: 

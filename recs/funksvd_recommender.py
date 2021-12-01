@@ -70,7 +70,8 @@ class FunkSVDRecs(base_recommender):
             scores = self.item_factors.T.dot(user)
 
             sorted_scores = scores.sort_values(ascending=False)
-            result = sorted_scores[:num + len(rated_movies)].astype(decimal.Decimal)
+            # result = sorted_scores[:num + len(rated_movies)].astype(decimal.Decimal)
+            result = sorted_scores[:num + len(rated_movies)]
             user_bias = 0
 
             if user_id in self.user_bias.keys():

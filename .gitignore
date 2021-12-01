@@ -5,8 +5,10 @@ prs
 venv
 recommender/migrations
 collector/migrations
-.prs
 cluster.png
 */__pycache__/*
 **/__pycache__/*
 analytics/migrations/*
+sircuv/
+models
+lda

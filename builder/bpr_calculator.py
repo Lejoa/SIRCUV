@@ -199,7 +199,8 @@ def load_all_ratings(min_ratings=1):
     item_ids = item_count[item_count['rating'] > min_ratings]['movie_id']
     ratings = ratings[ratings['movie_id'].isin(item_ids)]
 
-    ratings['rating'] = ratings['rating'].astype(Decimal)
+    # ratings['rating'] = ratings['rating'].astype(Decimal)
+    ratings['rating'] = ratings['rating']
     return ratings
 
 

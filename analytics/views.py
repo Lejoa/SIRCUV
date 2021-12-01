@@ -131,7 +131,13 @@ def lda(request):
 
 def cluster(request, cluster_id):
 
+    
     members = Cluster.objects.filter(cluster_id=cluster_id)
+    print('Estoy probando')
+    # print(members.values(user_id=str('user_id')))
+    # En el código original member.values('user_id) devuelve un string y debería ser un entero
+    # para ello se realizo la modificación del campo user_id a un bigint8 la tabla analytics_rating
+    # después de haberse ejecutado python3 -m builder.user_cluster_calculator 
     member_ratings = Rating.objects.filter(user_id__in=members.values('user_id'))
     movies = Movie.objects.filter(movie_id__in=member_ratings.values('movie_id'))
 

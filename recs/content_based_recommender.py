@@ -73,8 +73,12 @@ class ContentBasedRecs(base_recommender):
                                     .order_by('-rating').values()[:100])
 
         movie_ids = {movie['movie_id']: movie['rating'] for movie in user_items}
-        user_mean = sum(movie_ids.values()) / len(movie_ids)
 
+        if len(movie_ids) != 0:
+            user_mean = sum(movie_ids.values()) / len(movie_ids)
+        else:
+            user_mean = 0
+            
         sims = LdaSimilarity.objects.filter(Q(source__in=movie_ids.keys())
                                             & Q(target=item_id)
                                             & Q(similarity__gt=self.min_sim)).order_by('-similarity')

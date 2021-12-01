@@ -28,7 +28,7 @@ def ensure_dir(file_path):
 
 
 class FWLSCalculator(object):
-    def __init__(self, save_path, data_size=1000):
+    def __init__(self, save_path='./models/fwls/', data_size=1000):
         self.save_path = save_path
         self.logger = logging.getLogger('FWLS')
         self.train_data = None

@@ -304,7 +304,10 @@ def load_all_ratings(min_ratings=1):
     user_ids = user_count[user_count['movie_id'] > min_ratings]['user_id']
     ratings = ratings[ratings['user_id'].isin(user_ids)]
 
-    ratings['rating'] = ratings['rating'].astype(Decimal)
+    # ratings['rating'] = ratings['rating'].astype(Decimal)
+    # No se realiza la conversión al tipo Decimal
+    # Se debe buscar alternativa
+    ratings['rating'] = ratings['rating']
     return ratings
 
 

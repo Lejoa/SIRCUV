@@ -14,8 +14,8 @@ class Rating(models.Model):
 
 
 class Cluster(models.Model):
-    cluster_id = models.IntegerField()
-    user_id = models.IntegerField()
+    cluster_id = models.BigIntegerField()
+    user_id = models.BigIntegerField()
 
     def __str__(self):
         return "{} in {}".format(self.user_id, self.cluster_id)
